@@ -1,23 +1,29 @@
 extends KinematicBody2D
 
-export var move_speed := 250
-export var jump_force := 500
-export var gravity := 900
-export var max_jump_times := 1
+var move_speed := 400
+var jump_force := 800
+var gravity := 1200
+var max_jump_times := 1
 var jump_times := 0
 var grounded := false
 var velocity := Vector2.ZERO
+
+var jump_timer = 0.5
 
 func _physics_process(delta):
 	var direction_x :=  Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	velocity.x = direction_x * move_speed
 	
-	if not grounded and jump_times == max_jump_times:
-		$LeaveFloorTimer.start()
-	
 	if Input.is_action_just_pressed("jump") and jump_times > 0:
 		velocity.y = -jump_force
 		jump_times -= 1
+	
+	if not grounded and jump_times == max_jump_times:
+		jump_timer += delta
+	
+	if jump_timer >= 0.5:
+		jump_times -= 1
+		jump_timer = 0
 	
 	if Input.is_action_just_pressed("reload"):
 		get_tree().reload_current_scene()
@@ -30,6 +36,3 @@ func _physics_process(delta):
 	if grounded:
 		velocity = Vector2.ZERO
 		jump_times = max_jump_times
-
-func _on_LeaveFloorTimer_timeout():
-	jump_times -= 1
