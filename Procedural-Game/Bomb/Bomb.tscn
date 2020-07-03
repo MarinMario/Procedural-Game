@@ -7,9 +7,11 @@
 radius = 13.0885
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 45.4279
+radius = 139.725
 
 [node name="Bomb" type="RigidBody2D"]
+mass = 10.0
+gravity_scale = 10.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -25,11 +27,10 @@ shape = SubResource( 1 )
 position = Vector2( 26.0678, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2( -26.6985, 0.840897 )
+position = Vector2( -26.6985, 0.630673 )
 shape = SubResource( 2 )
 
 [node name="ExplodeTimer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 autostart = true
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
