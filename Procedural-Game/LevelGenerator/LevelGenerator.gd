@@ -55,9 +55,12 @@ func add_platform(w, h):
 		for i in (randi() % 5 + 5):
 			sc(random_x + i, random_y, 0)
 			sc(random_x + i, random_y + 1, 1)
-	
+
 func sc(x,y,index):
 	tm.set_cell(x,y,index)
+
+func remove_cell(cell_position):
+	tm.set_cellv(cell_position, -1)
 
 func _process(delta):
 	if Input.is_action_just_pressed("reload"):
