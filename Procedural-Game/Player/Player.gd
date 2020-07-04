@@ -10,7 +10,7 @@ var velocity := Vector2.ZERO
 
 var jump_timer = 0.5
 
-export var shoot_time := 0.1
+export var shoot_wait_time := 0.1
 var shoot_timer := 0.0
 
 func _physics_process(delta):
@@ -23,7 +23,7 @@ func _physics_process(delta):
 	$SpawnBombPosition.look_at(get_global_mouse_position())
 	
 	shoot_timer += delta
-	if Input.is_action_pressed("attack") and shoot_timer > shoot_time:
+	if Input.is_action_pressed("attack") and shoot_timer > shoot_wait_time:
 		spawn_bomb(500)
 		shoot_timer = 0
 	if Input.is_action_just_pressed("jump") and jump_times > 0:

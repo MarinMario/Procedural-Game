@@ -6,9 +6,9 @@
 
 [node name="World" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 92.6898, 74.6535 )
-
 [node name="LevelGenerator" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 422.214, -118.945 )
 
 [node name="CaveTileMap" parent="." instance=ExtResource( 3 )]
