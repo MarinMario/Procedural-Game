@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Bomb/Bomb.png" type="Texture" id=1]
 [ext_resource path="res://Bomb/Bomb.gd" type="Script" id=2]
@@ -10,7 +10,7 @@ bounce = 0.5
 radius = 7.96357
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 62.4229
+radius = 132.672
 
 [sub_resource type="Animation" id=4]
 resource_name = "count_down"
@@ -28,18 +28,21 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
 }
 
+[sub_resource type="CircleShape2D" id=5]
+radius = 9.45913
+
 [node name="Bomb" type="RigidBody2D"]
 mass = 10.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 10.0
 angular_damp = 10.0
 script = ExtResource( 2 )
+destroy_range = 6
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1.03936, 0.49262 )
 texture = ExtResource( 1 )
 vframes = 2
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1.62247, 1.4454 )
@@ -53,10 +56,17 @@ position = Vector2( -26.0678, 0 )
 shape = SubResource( 3 )
 
 [node name="ExplodeTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.2
 one_shot = true
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/count_down = SubResource( 4 )
+
+[node name="ExplodeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeArea"]
+position = Vector2( -1.62247, 1.4454 )
+shape = SubResource( 5 )
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_ExplodeTimer_timeout"]
+[connection signal="body_entered" from="ExplodeArea" to="." method="_on_ExplodeArea_body_entered"]

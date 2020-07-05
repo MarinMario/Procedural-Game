@@ -1,36 +1,39 @@
 extends Node2D
 
-onready var size = get_viewport_rect().size
-
-func place_rooms():
-	for y in 3:
-		for x in 3:
-			var room = generate_random_room(x, y).room.instance()
-			room.position = Vector2(x * size.x, y * (size.y - 20))
-			add_child(room)
-
-func generate_random_room(x, y):
-	randomize()
-	var rooms = Global.Rooms
-	
-	var filtered_group = "lr"
-	match [x, y]:
-		[0, 0] : filtered_group = "r"
-		[1, 0], [1, 1], [1,2] : filtered_group = "lr"
-		[2, 0] : filtered_group = "ld"
-		[0, 1] : filtered_group = "rd"
-		[0, 2] : filtered_group = "ru"
-		[2, 1] : filtered_group = "lu"
-		[2, 2] : filtered_group = "l"
-	
-	
-	var random_room = rooms[randi() % rooms.size()]
-	while random_room.group != filtered_group:
-		random_room = rooms[randi() % rooms.size()]
-	
-	#print(filtered_groups.sort())
-	
-	return random_room
+onready var tm: TileMap = get_parent().get_node("CaveTileMap")
+export var width = 200
+export var height = 100
+export var tile_size = 2
 
 func _ready():
-	place_rooms()
+	create_block(width, height)
+	random_walk(width, height, width * height, tile_size)
+
+func create_block(w, h):
+	for x in w:
+		for y in h:
+			tm.set_cell(x, y, 0)
+
+func random_walk(w, h, tile_amount, tile_size):
+	var tiles_to_remove := [random_cell(w, h)]
+	for tile in tile_amount:
+		var next_tile: Vector2 = tiles_to_remove[tile] + random_dir()
+		if next_tile.x > w or next_tile.x < 0 or next_tile.y > h or next_tile.y < 0:
+			next_tile = random_cell(w, h)
+			
+		tiles_to_remove.append(next_tile)
+	
+	for tile in tiles_to_remove:
+		for i in tile_size:
+			for j in tile_size:
+				tm.set_cell(tile.x + i, tile.y + j, -1)
+
+func random_dir():
+	randomize()
+	var dir := Vector2(int(rand_range(-2,2)), int(rand_range(-2,2)))
+	return dir
+
+func random_cell(w, h):
+	randomize()
+	var cell := Vector2(randi() % w, randi() % h)
+	return cell

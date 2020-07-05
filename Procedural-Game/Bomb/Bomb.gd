@@ -28,6 +28,9 @@ func spawn_explosion():
 	get_parent().add_child(explosion)
 
 func _on_ExplodeTimer_timeout():
+	pass
+
+func explode():
 	var bodies = $DamageArea.get_overlapping_bodies()
 	for body in bodies:
 		if body is TileMap:
@@ -36,3 +39,7 @@ func _on_ExplodeTimer_timeout():
 			explode_rigid_body(body)
 	spawn_explosion()
 	queue_free()
+
+func _on_ExplodeArea_body_entered(body):
+	if body.name != "Bomb":
+		explode()
