@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 export var move_speed := 400
-export var jump_force := 800
-export var gravity := 1200
-export var max_jump_times := 1000
+export var jump_force := 700
+export var gravity := 1000
+export var max_jump_times := 1
 var jump_times := 0
 var grounded := false
 var velocity := Vector2.ZERO
@@ -33,7 +33,7 @@ func _physics_process(delta):
 	if not grounded and jump_times == max_jump_times:
 		jump_timer += delta
 	
-	if jump_timer >= 0.5:
+	if jump_timer >= 0.1:
 		jump_times -= 1
 		jump_timer = 0
 		
