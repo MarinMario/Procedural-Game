@@ -9,7 +9,6 @@ export var impulse_force = 5000
 func _ready():
 	var impulse = (get_global_mouse_position() - global_position).normalized()
 	apply_impulse(Vector2.ZERO, impulse * speed)
-	$AnimationPlayer.play("count_down")
 
 func explode_tilemap(body):
 	var cell_position = body.world_to_map(global_position - body.global_position) 

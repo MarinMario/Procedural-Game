@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Player/PlayerUI.gd" type="Script" id=1]
+
+[node name="PlayerUI" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="ThrowPower" type="ProgressBar" parent="."]
+margin_left = 608.515
+margin_top = 20.6693
+margin_right = 708.515
+margin_bottom = 45.6693
+max_value = 1000.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
