@@ -36,9 +36,7 @@ func explode():
 	spawn_explosion()
 	queue_free()
 
-var explode_timer := 0.0
 func _process(delta):
-	explode_timer += delta
-	if Input.is_action_just_pressed("attack") and explode_timer > 0.1:
+	if Input.is_action_just_pressed("detonate"):
 		explode()
 
