@@ -37,7 +37,7 @@ physics_material_override = SubResource( 1 )
 gravity_scale = 10.0
 angular_damp = 10.0
 script = ExtResource( 2 )
-destroy_range = 6
+destroy_range = 4
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1.03936, 0.49262 )

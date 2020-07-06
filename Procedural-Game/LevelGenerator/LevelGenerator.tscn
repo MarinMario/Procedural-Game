@@ -4,3 +4,6 @@
 
 [node name="LevelGenerator" type="Node2D"]
 script = ExtResource( 1 )
+width = 400
+height = 240
+tile_size = 4

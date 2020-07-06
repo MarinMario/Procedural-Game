@@ -40,6 +40,8 @@ func explode():
 	spawn_explosion()
 	queue_free()
 
-func _on_ExplodeArea_body_entered(body):
-	if body.name != "Bomb":
+var explode_timer := 0.0
+func _process(delta):
+	explode_timer += delta
+	if Input.is_action_just_pressed("attack") and explode_timer > 0.1:
 		explode()

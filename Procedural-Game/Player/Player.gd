@@ -12,20 +12,19 @@ var jump_timer = 0.5
 
 export var shoot_wait_time := 0.1
 var shoot_timer := 0.0
+var press_attack_count := 0
 
 func _physics_process(delta):
 	var direction_x :=  Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	velocity.x = direction_x * move_speed
 	
-	if Input.is_action_just_pressed("reload"):
-		get_tree().reload_current_scene()
-	
 	$SpawnBombPosition.look_at(get_global_mouse_position())
 	
 	shoot_timer += delta
-	if Input.is_action_pressed("attack") and shoot_timer > shoot_wait_time:
-		spawn_bomb(500)
-		shoot_timer = 0
+	if Input.is_action_just_pressed("attack"):
+		if press_attack_count % 2 == 0:
+			spawn_bomb(500)
+		press_attack_count += 1
 	if Input.is_action_just_pressed("jump") and jump_times > 0:
 		velocity.y = -jump_force
 		jump_times -= 1
