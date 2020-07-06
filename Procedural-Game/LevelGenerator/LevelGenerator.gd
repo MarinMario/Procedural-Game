@@ -15,9 +15,9 @@ func create_block(w, h):
 		for y in h:
 			tm.set_cell(x, y, 0)
 
-func random_walk(w, h, tile_amount, tile_size):
+func random_walk(w, h, amount, size):
 	var tiles_to_remove := [random_cell(w, h)]
-	for tile in tile_amount:
+	for tile in amount:
 		var next_tile: Vector2 = tiles_to_remove[tile] + random_dir()
 		if next_tile.x > w or next_tile.x < 0 or next_tile.y > h or next_tile.y < 0:
 			next_tile = random_cell(w, h)
@@ -25,8 +25,8 @@ func random_walk(w, h, tile_amount, tile_size):
 		tiles_to_remove.append(next_tile)
 	
 	for tile in tiles_to_remove:
-		for i in tile_size:
-			for j in tile_size:
+		for i in size:
+			for j in size:
 				tm.set_cell(tile.x + i, tile.y + j, -1)
 
 func random_dir():

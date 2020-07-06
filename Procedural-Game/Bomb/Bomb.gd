@@ -27,9 +27,6 @@ func spawn_explosion():
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
 
-func _on_ExplodeTimer_timeout():
-	pass
-
 func explode():
 	var bodies = $DamageArea.get_overlapping_bodies()
 	for body in bodies:
@@ -45,3 +42,4 @@ func _process(delta):
 	explode_timer += delta
 	if Input.is_action_just_pressed("attack") and explode_timer > 0.1:
 		explode()
+
